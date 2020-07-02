@@ -1,0 +1,94 @@
+KnapsackProblem(values[], weights[], W)
+        ratios[]
+        for(i = 0; i < values.size(); i++)
+            ratios[i] = values[i] / weights[i]
+
+        MergeSort(ratios, values, weights, first index, last index)
+
+        currentWeight
+        totalValue
+        i = 0;
+
+        while(currentWeight <= W)
+            if(weights[i] + currentWeight <= W)
+                currentWeight += weights[i]
+                totalValue += values[i]
+                i++
+            else
+                totalValue += values[i] * (remaining weight / weights[i])
+                currentWeight = W
+                i++
+
+        return totalValue
+
+
+
+
+MergeSort(ratios, values, weights, low, high)
+        if(low < high)
+            mid = (low + high) / 2
+            MergeSort(ratios, values, weights, low, mid)
+            MergeSort(ratios, values, weights, mid + 1, high)
+            Merge(ratios, values, weights, low, high, mid)
+
+
+
+
+Merge(ratios, values, weights, low, high, mid)
+        ratiosLow[]
+        ratiosHigh[]
+        valuesLow[]
+        valuesHigh[]
+        weightsLow[]
+        weightsHigg[]
+
+        // populate temporary arrays
+        for(i = 0; i < size of low arrays; i++)
+            ratiosLow[i] = ratios[low + i]
+            valuesLow[i] = values[low + i]
+            weightsLow[i] = weights[low + i]
+
+        for(j = 0; j < size of low arrays; j++)
+            ratiosHigh[j] = ratios[mid + 1 + j]
+            valuesHigh[j] = values[mid + 1 + j]
+            weightsHigh[j] = weights[mid + 1 + j]
+
+        k = low
+        j = 0
+        i = 0
+
+        // compare lowest elements of low and high arrays which haven't been added back into original array
+        while(i < size of low arrays && j < size of high arrays)
+            if(ratiosLow[i] <= ratiosHigh[j])
+                ratios[k] = ratiosLow[i]
+                values[k] = valuesLow[i]
+                values[k] = valuesLow[i]
+                i++
+            else
+                ratios[k] = ratiosHigh[j]
+                values[k] = valuesHigh[j]
+                weights[k] = weightsHigh[j]
+                j++
+            k++
+
+
+        // add remaining values from array which wasn't emptied
+        while(i < size of low arrays)
+            ratios[k] = ratiosLow[i]
+            values[k] = valuesLow[i]
+            values[k] = valuesLow[i]
+            i++
+            k++
+        while(j < size of high arrays)
+            ratios[k] = ratiosHigh[j]
+            values[k] = valuesHigh[j]
+            weights[k] = weightsHigh[j]
+            j++
+            k++
+
+
+
+/*
+  Since the solution to this problem relies most heavily on an application of
+  merge sort, the algorithm operates in O(nlog(n)) time and O(1) space complexity.
+  */
